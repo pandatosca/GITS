@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>GITS Consulting | Strategy. Technology. Impact.</title>
+  <!-- Favicon: Data-URI simple GITS badge (blue square with white 'G') -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%232B3681' rx='20'/%3E%3Ctext x='50' y='72' font-size='62' font-family='Arial, sans-serif' font-weight='bold' fill='%23FFFFFF' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%232B3681' rx='20'/%3E%3Ctext x='50' y='72' font-size='62' font-family='Arial, sans-serif' font-weight='bold' fill='%23FFFFFF' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+  <!-- Google Fonts + Font Awesome 6 (Microsoft-style icons) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* CSS Variables - Light Theme (default) */
+    :root {
+      --surface: #E9E9ED;       /* 60% surface background */
+      --deep-ink: #161B2B;       /* 25% deep text */
+      --primary: #2B3681;        /* 10% primary */
+      --accent: #5788FF;         /* 5% accent */
+      --secondary-text: #6F737F;
+      --card-bg: #FFFFFF;
+      --border-light: rgba(0,0,0,0.05);
+      --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
+      --shadow-md: 0 20px 25px -12px rgba(0,0,0,0.08);
+      --transition: all 0.25s ease;
+    }
+
+    /* Dark Theme */
+    body.dark {
+      --surface: #0F121F;
+      --deep-ink: #F0F3FA;
+      --primary: #5788FF;
+      --accent: #7EA2FF;
+      --secondary-text: #A0A5B5;
+      --card-bg: #1A1F2E;
+      --border-light: rgba(255,255,255,0.05);
+      --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.3);
+      --shadow-md: 0 20px 25px -12px rgba(0,0,0,0.5);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--surface);
+      color: var(--deep-ink);
+      transition: background-color 0.3s, color 0.2s;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* Layout utility */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    /* Typography */
+    h1, h2, h3 {
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+    .section-badge {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 40px;
+      margin-bottom: 1rem;
+      letter-spacing: 0.5px;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .section-header p {
+      color: var(--secondary-text);
+      max-width: 600px;
+      margin: 0.75rem auto 0;
+    }
+
+    /* Buttons & Interactive */
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(87,136,255,0.3);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 500;
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Navbar */
+    .navbar {
+      padding: 20px 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      background-color: rgba(var(--surface-rgb, 233,233,237), 0.85);
+    }
+    body.dark .navbar {
+      background-color: rgba(15,18,31,0.9);
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.6rem;
+      letter-spacing: -0.5px;
+    }
+    .logo-icon {
+      background: var(--primary);
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--deep-ink);
+      font-weight: 500;
+      transition: 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    .lang-switch {
+      display: flex;
+      gap: 4px;
+      background: var(--card-bg);
+      border-radius: 40px;
+      padding: 4px 10px;
+      border: 1px solid var(--border-light);
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .lang-switch span {
+      padding: 4px 8px;
+      border-radius: 32px;
+      transition: 0.2s;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .lang-switch span.active {
+      background: var(--primary);
+      color: white;
+    }
+    .theme-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 40px;
+      padding: 8px 16px;
+      cursor: pointer;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    /* Hero Section with Background Image */
+    .hero {
+      padding: 60px 0 80px;
+      background-image: linear-gradient(135deg, rgba(43,54,129,0.85) 0%, rgba(87,136,255,0.8) 100%), url('https://img.magnific.com/free-photo/african-american-business-woman-working-computer-bar_1303-10866.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      background-repeat: no-repeat;
+      color: white;
+    }
+    .hero .hero-content .tagline {
+      color: rgba(255,255,255,0.9);
+      font-weight: 600;
+    }
+    .hero .hero-content h1 {
+      color: white;
+    }
+    .hero .hero-content p {
+      color: rgba(255,255,255,0.85);
+    }
+    .hero .btn-primary {
+      background: white;
+      color: var(--primary);
+    }
+    .hero .btn-primary:hover {
+      background: var(--accent);
+      color: white;
+    }
+    .hero .btn-outline {
+      border-color: white;
+      color: white;
+    }
+    .hero .btn-outline:hover {
+      background: white;
+      color: var(--primary);
+    }
+    .hero-badge {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(4px);
+    }
+    .hero-grid {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .hero-content {
+      flex: 1;
+    }
+    .hero-content .tagline {
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+    .hero-content h1 {
+      font-size: 3.2rem;
+      margin-bottom: 1.2rem;
+    }
+    .hero-badge {
+      display: inline-flex;
+      background: rgba(87,136,255,0.15);
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-top: 20px;
+    }
+    .hero-image {
+      flex: 1;
+      background: rgba(0,0,0,0.2);
+      border-radius: 32px;
+      padding: 20px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+    .hero-image i {
+      font-size: 12rem;
+      color: white;
+      opacity: 0.9;
+    }
+    /* Cards */
+    .grid-3, .grid-4, .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 28px 20px;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+    .card-icon {
+      font-size: 2.8rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+    }
+    .card p {
+      color: var(--secondary-text);
+      font-size: 0.9rem;
+    }
+    /* Methodology */
+    .methodology-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .step {
+      background: var(--card-bg);
+      border-radius: 60px;
+      padding: 12px 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border-light);
+    }
+    .step-number {
+      background: var(--primary);
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+    /* Offices */
+    .office-card {
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .office-icon {
+      font-size: 2rem;
+      color: var(--primary);
+    }
+    .partner-strip {
+      background: var(--primary);
+      border-radius: 60px;
+      padding: 12px 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    footer {
+      background: var(--card-bg);
+      padding: 48px 0 24px;
+      border-top: 1px solid var(--border-light);
+      margin-top: 40px;
+    }
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .hero-content h1 {
+        font-size: 2.2rem;
+      }
+      section {
+        padding: 50px 0;
+      }
+      h2 {
+        font-size: 1.8rem;
+      }
+      .card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-container">
+      <div class="logo">
+        <div class="logo-icon">G</div>
+        <span>GITS Consulting</span>
+      </div>
+      <div class="nav-links">
+        <a href="#services" data-key="nav_services">Services</a>
+        <a href="#solutions" data-key="nav_solutions">Solutions</a>
+        <a href="#methodology" data-key="nav_methodology">Methodology</a>
+        <a href="#contact" data-key="nav_contact">Contact</a>
+        <!-- Language Switcher -->
+        <div class="lang-switch" id="langToggle">
+          <span id="langEn" class="active">EN</span>
+          <span id="langId">ID</span>
+        </div>
+        <div class="theme-toggle" id="darkmode-toggle">
+          <i class="fas fa-moon"></i> <span id="theme-text">Dark</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="tagline" data-key="hero_tagline">Microsoft Gold Partner</div>
+          <h1 data-key="hero_title1">Strategy.<br>Technology.<br><span style="color: rgba(255,255,255,0.9);">Impact.</span></h1>
+          <p style="font-size: 1.1rem; margin: 1rem 0;" data-key="hero_desc">We transform businesses with AI-driven consulting, cloud ERP, and data intelligence — delivering measurable outcomes.</p>
+          <div style="display: flex; gap: 16px; margin-top: 24px;">
+            <a href="#contact" class="btn-primary" data-key="hero_btn1"><i class="fas fa-arrow-right"></i> Partner with us</a>
+            <a href="#solutions" class="btn-outline" data-key="hero_btn2">Explore solutions</a>
+          </div>
+          <div class="hero-badge">
+            <i class="fab fa-microsoft" style="margin-right: 8px;"></i> <span data-key="hero_badge">Gold ERP & Cloud Solutions Partner</span>
+          </div>
+        </div>
+        <div class="hero-image">
+          <i class="fas fa-chalkboard-user"></i>
+          <i class="fas fa-cloud-arrow-up" style="font-size: 5rem; margin-left: 12px;"></i>
+          <i class="fas fa-chart-line" style="font-size: 4rem;"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Services -->
+    <section id="services">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge" data-key="services_badge">What we deliver</span>
+          <h2 data-key="services_title">Core expertise</h2>
+          <p data-key="services_sub">End-to-end IT enablement & strategic advisory</p>
+        </div>
+        <div class="grid-3">
+          <div class="card"><div class="card-icon"><i class="fas fa-chalkboard-user"></i></div><h3 data-key="service1_title">IT & Business Consulting</h3><p data-key="service1_desc">Strategic guidance aligning technology with business goals for growth and digital resilience.</p></div>
+          <div class="card"><div class="card-icon"><i class="fas fa-microchip"></i></div><h3 data-key="service2_title">New & Upgrade System</h3><p data-key="service2_desc">Seamless, secure system deployment ensuring smooth operational transition with Microsoft tech.</p></div>
+          <div class="card"><div class="card-icon"><i class="fas fa-chart-simple"></i></div><h3 data-key="service3_title">Continuous Improvement</h3><p data-key="service3_desc">Ongoing system optimization to boost performance, automation, and adaptability.</p></div>
+          <div class="card"><div class="card-icon"><i class="fas fa-graduation-cap"></i></div><h3 data-key="service4_title">Training & Education</h3><p data-key="service4_desc">Comprehensive enablement ensuring effective technology adoption and upskilling.</p></div>
+          <div class="card"><div class="card-icon"><i class="fas fa-headset"></i></div><h3 data-key="service5_title">Dedicated Customer Support</h3><p data-key="service5_desc">Responsive technical support to resolve system issues quickly, 24/7 assistance.</p></div>
+          <div class="card"><div class="card-icon"><i class="fas fa-database"></i></div><h3 data-key="service6_title">Data & AI Products</h3><p data-key="service6_desc">Advanced analytics, AI models, and Microsoft Fabric to transform raw data into insights.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DATA & AI Feature -->
+    <section style="background: var(--card-bg);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge" data-key="data_badge">Our product</span>
+          <h2 data-key="data_title">DATA & AI · Intelligence at scale</h2>
+          <p data-key="data_sub">Leverage Microsoft AI, Copilot & Azure Machine Learning for predictive decisions</p>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+          <div style="flex: 1;"><i class="fas fa-brain" style="font-size: 5rem; color: var(--accent);"></i><h3 style="margin: 16px 0 8px;" data-key="ai_title1">AI-first transformation</h3><p data-key="ai_desc1">From customer insights to supply chain forecasting, our AI accelerators reduce time-to-value.</p></div>
+          <div style="flex: 1;"><i class="fas fa-chart-pie" style="font-size: 5rem; color: var(--primary);"></i><h3 style="margin: 16px 0 8px;" data-key="ai_title2">Real-time analytics</h3><p data-key="ai_desc2">Power BI embedded dashboards + Azure Synapse, unifying data silos across enterprise.</p></div>
+          <div style="flex: 1;"><i class="fab fa-microsoft" style="font-size: 5rem; color: var(--accent);"></i><h3 style="margin: 16px 0 8px;" data-key="ai_title3">Microsoft ecosystem</h3><p data-key="ai_desc3">Native integration with Dynamics 365, Microsoft 365 Copilot, and Teams.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Industry Solutions -->
+    <section id="solutions">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge" data-key="industry_badge">Industry solutions</span>
+          <h2 data-key="industry_title">Tailored for your vertical</h2>
+          <p data-key="industry_sub">Microsoft-powered industry excellence</p>
+        </div>
+        <div class="grid-4" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+          <div class="card"><i class="fas fa-boxes card-icon"></i><h3 data-key="ind1_title">Trade & Distribution</h3><p data-key="ind1_desc">Seamless inventory management, order processing, real-time analytics for data-driven decisions.</p></div>
+          <div class="card"><i class="fas fa-industry card-icon"></i><h3 data-key="ind2_title">Manufacture</h3><p data-key="ind2_desc">Production planning, resource optimization, real-time workflows to boost efficiency and output.</p></div>
+          <div class="card"><i class="fas fa-utensils card-icon"></i><h3 data-key="ind3_title">Food & Beverage</h3><p data-key="ind3_desc">Supply chain, inventory optimization, sales insights, and operational analytics for growth.</p></div>
+          <div class="card"><i class="fas fa-hotel card-icon"></i><h3 data-key="ind4_title">Hospitality</h3><p data-key="ind4_desc">Property management, guest experience optimization, revenue analytics & AI personalization.</p></div>
+          <div class="card"><i class="fas fa-hospital-user card-icon"></i><h3 data-key="ind5_title">Healthcare</h3><p data-key="ind5_desc">Secure patient data platform, AI diagnosis support, streamlined admin & collaborative care.</p></div>
+          <div class="card"><i class="fas fa-truck-fast card-icon"></i><h3 data-key="ind6_title">Logistic & Forwarding</h3><p data-key="ind6_desc">Real-time tracking, demand analytics, route optimization, proactive disruption management.</p></div>
+          <div class="card"><i class="fas fa-hand-holding-heart card-icon"></i><h3 data-key="ind7_title">NGO</h3><p data-key="ind7_desc">Donor management, project insights, transparent reporting for social impact.</p></div>
+          <div class="card"><i class="fas fa-concierge-bell card-icon"></i><h3 data-key="ind8_title">Service Industry</h3><p data-key="ind8_desc">Resource allocation, appointment management, personalized client journeys, and analytics.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Methodology -->
+    <section id="methodology" style="background: var(--card-bg);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge" data-key="method_badge">Our methodology</span>
+          <h2 data-key="method_title">Proven path to impact</h2>
+          <p data-key="method_sub">End-to-end execution framework</p>
+        </div>
+        <div class="methodology-grid">
+          <div class="step"><span class="step-number">1</span> <span data-key="step1">Discover</span></div>
+          <div class="step"><span class="step-number">2</span> <span data-key="step2">Strategy</span></div>
+          <div class="step"><span class="step-number">3</span> <span data-key="step3">Design</span></div>
+          <div class="step"><span class="step-number">4</span> <span data-key="step4">Implement</span></div>
+          <div class="step"><span class="step-number">5</span> <span data-key="step5">Optimize</span></div>
+          <div class="step"><span class="step-number">6</span> <span data-key="step6">Scale & Support</span></div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;"><p data-key="method_note" style="color: var(--secondary-text);">Agile & AI-driven delivery — from pilot to enterprise-wide transformation.</p></div>
+      </div>
+    </section>
+
+    <!-- Add On Solutions -->
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge" data-key="addon_badge">Extend your power</span>
+          <h2 data-key="addon_title">Add‑on solutions</h2>
+          <p data-key="addon_sub">Microsoft ecosystem expansions & custom accelerators</p>
+        </div>
+        <div class="grid-2" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+          <div class="card"><i class="fab fa-windows card-icon"></i><h3 data-key="add1_title">Power Platform</h3><p data-key="add1_desc">Low-code automation, custom apps & chatbots on Microsoft Dataverse.</p></div>
+          <div class="card"><i class="fas fa-shield-alt card-icon"></i><h3 data-key="add2_title">Security & Compliance</h3><p data-key="add2_desc">Microsoft 365 Defender, Purview, and zero-trust architecture.</p></div>
+          <div class="card"><i class="fas fa-cloud-arrow-up card-icon"></i><h3 data-key="add3_title">Cloud Migration</h3><p data-key="add3_desc">Seamless move to Azure & Dynamics 365 with minimal disruption.</p></div>
+          <div class="card"><i class="fas fa-robot card-icon"></i><h3 data-key="add4_title">Copilot Integration</h3><p data-key="add4_desc">Custom Copilot agents for sales, finance, and customer service.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Office & Contact -->
+    <section id="contact" style="background: var(--card-bg);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge" data-key="contact_badge">Our presence</span>
+          <h2 data-key="contact_title">Connect with GITS</h2>
+        </div>
+        <div class="grid-2" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
+          <div class="office-card">
+            <div class="office-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div><h3 data-key="office1_title">Surabaya Area</h3><p>Jl Jemursari Timur VIII JF-22, Surabaya, Indonesia<br>T: +62(31) 99841234 | 99841698</p></div>
+          </div>
+          <div class="office-card">
+            <div class="office-icon"><i class="fas fa-building"></i></div>
+            <div><h3 data-key="office2_title">Jakarta Area</h3><p>Menara BCA 50th Floor, Jl MH Thamrin no.1 Jakarta<br>Jl Tanjung Duren Barat II no 18, Jakarta<br>T: +62(21) 5671856 | 23584783</p></div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px; background: var(--surface); padding: 30px; border-radius: 48px;">
+          <i class="fas fa-envelope" style="font-size: 2rem; color: var(--primary);"></i>
+          <p style="margin: 8px 0;"><strong>info@gitsconsulting.com</strong> | <strong>www.gitsconsulting.com</strong></p>
+          <div class="partner-strip">
+            <i class="fab fa-microsoft"></i> <span data-key="partner_text">Microsoft Gold Partner for ERP, Cloud Solutions & SMB</span>
+            <i class="fas fa-certificate"></i> <span data-key="partner_year">CSP Direct Bill Partner Since 2015</span>
+          </div>
+          <div style="margin-top: 24px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+            <span><i class="fas fa-users"></i> <span data-key="stat1">25+ Experts</span></span>
+            <span><i class="fas fa-chart-line"></i> <span data-key="stat2">200+ Deployments</span></span>
+            <span><i class="fas fa-star"></i> <span data-key="stat3">Gold & Silver Competencies</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 32px 0;">
+      <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; text-align: center;">
+        <div><h3 style="font-size: 2.2rem; color: var(--primary);">2015</h3><p data-key="history1">Founded as CSP Microsoft Partner</p></div>
+        <div><h3 style="font-size: 2.2rem; color: var(--primary);">11 → 25</h3><p data-key="history2">Manpower growth & certified architects</p></div>
+        <div><h3 style="font-size: 2.2rem; color: var(--primary);">Gold</h3><p data-key="history3">ERP & Cloud Solutions</p></div>
+        <div><h3 style="font-size: 2.2rem; color: var(--primary);">100%</h3><p data-key="history4">Client retention & satisfaction focus</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px;">
+        <div><div class="logo" style="margin-bottom: 12px;"><div class="logo-icon">G</div>GITS Consulting</div><p data-key="footer_text">PT Global Industri Teknologi Solusi<br>Driving digital excellence since 2015</p></div>
+        <div><h4 data-key="footer_quick">Quick links</h4><a href="#services" style="color: var(--secondary-text); display: block;" data-key="nav_services">Services</a><a href="#solutions" style="color: var(--secondary-text);" data-key="nav_solutions">Solutions</a><a href="#contact" style="color: var(--secondary-text);" data-key="nav_contact">Contact</a></div>
+        <div><h4 data-key="footer_legal">Legal</h4><p data-key="footer_copyright" style="color: var(--secondary-text);">© 2025 GITS Consulting. All rights reserved.<br>Microsoft partner trademarks belong to respective owners.</p></div>
+      </div>
+      <hr style="margin: 32px 0 16px; border-color: var(--border-light);">
+      <p style="text-align: center; font-size: 0.8rem; color: var(--secondary-text);"><i class="fas fa-code"></i> <span data-key="footer_tagline">Strategy. Technology. Impact. — Transform with confidence.</span></p>
+    </div>
+  </footer>
+
+  <script>
+    // Language translations
+    const translations = {
+      en: {
+        nav_services: "Services", nav_solutions: "Solutions", nav_methodology: "Methodology", nav_contact: "Contact",
+        hero_tagline: "Microsoft Gold Partner", hero_title1: "Strategy.<br>Technology.<br><span style=\"color: rgba(255,255,255,0.9);\">Impact.</span>", hero_desc: "We transform businesses with AI-driven consulting, cloud ERP, and data intelligence — delivering measurable outcomes.", hero_btn1: "Partner with us", hero_btn2: "Explore solutions", hero_badge: "Gold ERP & Cloud Solutions Partner",
+        services_badge: "What we deliver", services_title: "Core expertise", services_sub: "End-to-end IT enablement & strategic advisory",
+        service1_title: "IT & Business Consulting", service1_desc: "Strategic guidance aligning technology with business goals for growth and digital resilience.",
+        service2_title: "New & Upgrade System", service2_desc: "Seamless, secure system deployment ensuring smooth operational transition with Microsoft tech.",
+        service3_title: "Continuous Improvement", service3_desc: "Ongoing system optimization to boost performance, automation, and adaptability.",
+        service4_title: "Training & Education", service4_desc: "Comprehensive enablement ensuring effective technology adoption and upskilling.",
+        service5_title: "Dedicated Customer Support", service5_desc: "Responsive technical support to resolve system issues quickly, 24/7 assistance.",
+        service6_title: "Data & AI Products", service6_desc: "Advanced analytics, AI models, and Microsoft Fabric to transform raw data into insights.",
+        data_badge: "Our product", data_title: "DATA & AI · Intelligence at scale", data_sub: "Leverage Microsoft AI, Copilot & Azure Machine Learning for predictive decisions",
+        ai_title1: "AI-first transformation", ai_desc1: "From customer insights to supply chain forecasting, our AI accelerators reduce time-to-value.",
+        ai_title2: "Real-time analytics", ai_desc2: "Power BI embedded dashboards + Azure Synapse, unifying data silos across enterprise.",
+        ai_title3: "Microsoft ecosystem", ai_desc3: "Native integration with Dynamics 365, Microsoft 365 Copilot, and Teams.",
+        industry_badge: "Industry solutions", industry_title: "Tailored for your vertical", industry_sub: "Microsoft-powered industry excellence",
+        ind1_title: "Trade & Distribution", ind1_desc: "Seamless inventory management, order processing, real-time analytics for data-driven decisions.",
+        ind2_title: "Manufacture", ind2_desc: "Production planning, resource optimization, real-time workflows to boost efficiency and output.",
+        ind3_title: "Food & Beverage", ind3_desc: "Supply chain, inventory optimization, sales insights, and operational analytics for growth.",
+        ind4_title: "Hospitality", ind4_desc: "Property management, guest experience optimization, revenue analytics & AI personalization.",
+        ind5_title: "Healthcare", ind5_desc: "Secure patient data platform, AI diagnosis support, streamlined admin & collaborative care.",
+        ind6_title: "Logistic & Forwarding", ind6_desc: "Real-time tracking, demand analytics, route optimization, proactive disruption management.",
+        ind7_title: "NGO", ind7_desc: "Donor management, project insights, transparent reporting for social impact.",
+        ind8_title: "Service Industry", ind8_desc: "Resource allocation, appointment management, personalized client journeys, and analytics.",
+        method_badge: "Our methodology", method_title: "Proven path to impact", method_sub: "End-to-end execution framework",
+        step1: "Discover", step2: "Strategy", step3: "Design", step4: "Implement", step5: "Optimize", step6: "Scale & Support",
+        method_note: "Agile & AI-driven delivery — from pilot to enterprise-wide transformation.",
+        addon_badge: "Extend your power", addon_title: "Add‑on solutions", addon_sub: "Microsoft ecosystem expansions & custom accelerators",
+        add1_title: "Power Platform", add1_desc: "Low-code automation, custom apps & chatbots on Microsoft Dataverse.",
+        add2_title: "Security & Compliance", add2_desc: "Microsoft 365 Defender, Purview, and zero-trust architecture.",
+        add3_title: "Cloud Migration", add3_desc: "Seamless move to Azure & Dynamics 365 with minimal disruption.",
+        add4_title: "Copilot Integration", add4_desc: "Custom Copilot agents for sales, finance, and customer service.",
+        contact_badge: "Our presence", contact_title: "Connect with GITS",
+        office1_title: "Surabaya Area", office2_title: "Jakarta Area",
+        partner_text: "Microsoft Gold Partner for ERP, Cloud Solutions & SMB", partner_year: "CSP Direct Bill Partner Since 2015",
+        stat1: "25+ Experts", stat2: "200+ Deployments", stat3: "Gold & Silver Competencies",
+        history1: "Founded as CSP Microsoft Partner", history2: "Manpower growth & certified architects", history3: "ERP & Cloud Solutions", history4: "Client retention & satisfaction focus",
+        footer_text: "PT Global Industri Teknologi Solusi<br>Driving digital excellence since 2015", footer_quick: "Quick links", footer_legal: "Legal", footer_copyright: "© 2025 GITS Consulting. All rights reserved.<br>Microsoft partner trademarks belong to respective owners.", footer_tagline: "Strategy. Technology. Impact. — Transform with confidence."
+      },
+      id: {
+        nav_services: "Layanan", nav_solutions: "Solusi", nav_methodology: "Metodologi", nav_contact: "Kontak",
+        hero_tagline: "Mitra Microsoft Gold", hero_title1: "Strategi.<br>Teknologi.<br><span style=\"color: rgba(255,255,255,0.9);\">Dampak.</span>", hero_desc: "Kami mentransformasi bisnis dengan konsultasi berbasis AI, ERP cloud, dan intelijen data — memberikan hasil yang terukur.", hero_btn1: "Bermitra dengan kami", hero_btn2: "Jelajahi solusi", hero_badge: "Mitra Solusi ERP & Cloud Gold",
+        services_badge: "Yang kami berikan", services_title: "Keahlian inti", services_sub: "Pengaktifan TI dan penasihat strategis menyeluruh",
+        service1_title: "Konsultasi TI & Bisnis", service1_desc: "Panduan strategis menyelaraskan teknologi dengan tujuan bisnis untuk pertumbuhan dan ketahanan digital.",
+        service2_title: "Implementasi Sistem Baru & Upgrade", service2_desc: "Penerapan sistem yang aman dan mulus memastikan transisi operasional yang lancar dengan teknologi Microsoft.",
+        service3_title: "Peningkatan Berkelanjutan", service3_desc: "Optimasi sistem berkelanjutan untuk meningkatkan kinerja, otomatisasi, dan adaptabilitas.",
+        service4_title: "Pelatihan & Edukasi", service4_desc: "Pemberdayaan komprehensif memastikan adopsi teknologi dan peningkatan keterampilan yang efektif.",
+        service5_title: "Dukungan Pelanggan Khusus", service5_desc: "Dukungan teknis responsif untuk menyelesaikan masalah sistem dengan cepat, bantuan 24/7.",
+        service6_title: "Produk Data & AI", service6_desc: "Analitik canggih, model AI, dan Microsoft Fabric untuk mengubah data mentah menjadi wawasan.",
+        data_badge: "Produk kami", data_title: "DATA & AI · Intelijen skala besar", data_sub: "Manfaatkan Microsoft AI, Copilot & Azure Machine Learning untuk keputusan prediktif",
+        ai_title1: "Transformasi berbasis AI", ai_desc1: "Dari wawasan pelanggan hingga perkiraan rantai pasok, akselerator AI kami mengurangi waktu untuk memberikan nilai.",
+        ai_title2: "Analitik waktu nyata", ai_desc2: "Dasbor Power BI tertanam + Azure Synapse, menyatukan silo data di seluruh perusahaan.",
+        ai_title3: "Ekosistem Microsoft", ai_desc3: "Integrasi asli dengan Dynamics 365, Microsoft 365 Copilot, dan Teams.",
+        industry_badge: "Solusi industri", industry_title: "Disesuaikan untuk vertikal Anda", industry_sub: "Keunggulan industri bertenaga Microsoft",
+        ind1_title: "Perdagangan & Distribusi", ind1_desc: "Manajemen inventaris tanpa hambatan, pemrosesan pesanan, analitik waktu nyata untuk keputusan berbasis data.",
+        ind2_title: "Manufaktur", ind2_desc: "Perencanaan produksi, optimalisasi sumber daya, alur kerja waktu nyata untuk meningkatkan efisiensi dan hasil.",
+        ind3_title: "Makanan & Minuman", ind3_desc: "Manajemen rantai pasok, optimalisasi inventaris, wawasan penjualan, dan analitik operasional untuk pertumbuhan.",
+        ind4_title: "Perhotelan", ind4_desc: "Manajemen properti, optimalisasi pengalaman tamu, analitik pendapatan & personalisasi AI.",
+        ind5_title: "Kesehatan", ind5_desc: "Platform data pasien yang aman, dukungan diagnosis AI, administrasi yang efisien & perawatan kolaboratif.",
+        ind6_title: "Logistik & Pengiriman", ind6_desc: "Pelacakan waktu nyata, analitik permintaan, optimalisasi rute, manajemen gangguan proaktif.",
+        ind7_title: "LSM", ind7_desc: "Manajemen donatur, wawasan proyek, pelaporan transparan untuk dampak sosial.",
+        ind8_title: "Industri Jasa", ind8_desc: "Alokasi sumber daya, manajemen janji temu, perjalanan klien yang dipersonalisasi, dan analitik.",
+        method_badge: "Metodologi kami", method_title: "Jalur menuju dampak yang terbukti", method_sub: "Kerangka kerja eksekusi menyeluruh",
+        step1: "Temukan", step2: "Strategi", step3: "Desain", step4: "Terapkan", step5: "Optimalkan", step6: "Skalakan & Dukung",
+        method_note: "Pengiriman tangkas & berbasis AI — dari proyek percontohan hingga transformasi skala perusahaan.",
+        addon_badge: "Perluas kemampuan Anda", addon_title: "Solusi tambahan", addon_sub: "Ekspansi ekosistem Microsoft & akselerator kustom",
+        add1_title: "Power Platform", add1_desc: "Otomatisasi low-code, aplikasi kustom & chatbot di Microsoft Dataverse.",
+        add2_title: "Keamanan & Kepatuhan", add2_desc: "Microsoft 365 Defender, Purview, dan arsitektur zero-trust.",
+        add3_title: "Migrasi Cloud", add3_desc: "Pindah ke Azure & Dynamics 365 dengan lancar dan gangguan minimal.",
+        add4_title: "Integrasi Copilot", add4_desc: "Agen Copilot kustom untuk penjualan, keuangan, dan layanan pelanggan.",
+        contact_badge: "Kehadiran kami", contact_title: "Terhubung dengan GITS",
+        office1_title: "Area Surabaya", office2_title: "Area Jakarta",
+        partner_text: "Mitra Gold Microsoft untuk ERP, Solusi Cloud & UKM", partner_year: "Mitra Langganan CSP Sejak 2015",
+        stat1: "25+ Tenaga Ahli", stat2: "200+ Implementasi", stat3: "Kompetensi Emas & Perak",
+        history1: "Didirikan sebagai Mitra Microsoft CSP", history2: "Pertumbuhan tenaga kerja & arsitek bersertifikat", history3: "Solusi ERP & Cloud", history4: "Retensi klien & fokus kepuasan",
+        footer_text: "PT Global Industri Teknologi Solusi<br>Mendorong keunggulan digital sejak 2015", footer_quick: "Tautan cepat", footer_legal: "Hukum", footer_copyright: "© 2025 GITS Consulting. Hak cipta dilindungi.<br>Merek dagang mitra Microsoft milik pemiliknya masing-masing.", footer_tagline: "Strategi. Teknologi. Dampak. — Bertransformasi dengan percaya diri."
+      }
+    };
+
+    let currentLang = 'en';
+    function updateLanguage(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (t[key] !== undefined) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.placeholder = t[key];
+          } else {
+            el.innerHTML = t[key];
+          }
+        }
+      });
+      // toggle active class on language switcher
+      document.getElementById('langEn').classList.toggle('active', lang === 'en');
+      document.getElementById('langId').classList.toggle('active', lang === 'id');
+    }
+
+    document.getElementById('langEn').addEventListener('click', () => updateLanguage('en'));
+    document.getElementById('langId').addEventListener('click', () => updateLanguage('id'));
+
+    // Dark mode logic
+    const toggle = document.getElementById('darkmode-toggle');
+    const themeText = document.getElementById('theme-text');
+    const body = document.body;
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark');
+      themeText.innerText = 'Light';
+      toggle.innerHTML = '<i class="fas fa-sun"></i> <span id="theme-text">Light</span>';
+    } else {
+      body.classList.remove('dark');
+      themeText.innerText = 'Dark';
+      toggle.innerHTML = '<i class="fas fa-moon"></i> <span id="theme-text">Dark</span>';
+    }
+    toggle.addEventListener('click', () => {
+      if (body.classList.contains('dark')) {
+        body.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        toggle.innerHTML = '<i class="fas fa-moon"></i> <span id="theme-text">Dark</span>';
+      } else {
+        body.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        toggle.innerHTML = '<i class="fas fa-sun"></i> <span id="theme-text">Light</span>';
+      }
+    });
+  </script>
+</body>
+</html>
