@@ -1,94 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Under Maintenance - GITS Consulting</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>GITS Consulting | Maintenance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #ffffff;
-            color: #2c336b; /* Warna biru gelap menyesuaikan dengan logo/gambar */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            padding: 24px;
-        }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #FFFFFF;
+      color: #161B2B;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
 
-        .maintenance-container {
-            max-width: 800px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    .maintenance-card {
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      background: #FFFFFF;
+      border-radius: 2rem;
+      padding: 2rem;
+    }
 
-        .illustration {
-            width: 100%;
-            max-width: 500px; /* Ukuran proporsional di desktop */
-            height: auto;
-            margin-bottom: 40px;
-        }
+    /* Sisi gambar (dari repo GitHub) */
+    .illustration {
+      flex: 1;
+      min-width: 240px;
+      text-align: center;
+    }
 
-        h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            line-height: 1.2;
-            color: #2c336b;
-        }
+    .illustration img {
+      max-width: 100%;
+      height: auto;
+      width: 100%;
+      max-width: 400px;
+      display: inline-block;
+      border-radius: 24px;
+    }
 
-        p {
-            font-size: 1.1rem;
-            font-weight: 500;
-            line-height: 1.6;
-            color: #5a618e;
-            max-width: 650px;
-            margin: 0 auto;
-        }
+    /* Sisi konten */
+    .content {
+      flex: 1.2;
+      padding: 0.5rem;
+    }
 
-        /* Responsive Mobile Layout */
-        @media (max-width: 768px) {
-            .illustration {
-                max-width: 350px;
-                margin-bottom: 30px;
-            }
+    .badge {
+      display: inline-block;
+      background: #2B3681;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 1rem;
+      border-radius: 40px;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
 
-            h1 {
-                font-size: 2rem;
-            }
+    .content h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #2B3681;
+      margin-bottom: 1rem;
+    }
 
-            p {
-                font-size: 1rem;
-                padding: 0 10px;
-            }
-        }
+    .content p {
+      font-size: 1.1rem;
+      color: #6F737F;
+      margin-bottom: 1.8rem;
+      max-width: 480px;
+    }
 
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.75rem;
-            }
-        }
-    </style>
+    .contact {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #161B2B;
+      border-top: 1px solid #E9E9ED;
+      padding-top: 1.5rem;
+      display: inline-block;
+    }
+
+    .contact a {
+      color: #2B3681;
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 2px solid #5788FF;
+      transition: all 0.2s;
+    }
+
+    .contact a:hover {
+      color: #5788FF;
+      border-bottom-color: #2B3681;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 1.5rem;
+      }
+      .maintenance-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+        gap: 1.5rem;
+      }
+      .content h1 {
+        font-size: 1.9rem;
+      }
+      .content p {
+        font-size: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .illustration img {
+        max-width: 260px;
+      }
+      .contact {
+        display: inline-block;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .content h1 {
+        font-size: 1.6rem;
+      }
+      .illustration img {
+        max-width: 200px;
+      }
+      .maintenance-card {
+        padding: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-
-    <div class="maintenance-container">
-        <img src="data:image/svg+xml,%3Csvg viewBox='0 0 341 221' xmlns='http://www.w3.org/2000/svg'%3E...%3C/svg%3E" alt="Under Maintenance" class="illustration">
-        
-        <h1>We’re Crafting<br>Something Better</h1>
-        <p>Our website is currently under maintenance while we prepare something smarter, faster, and more inspiring. Thank you for your patience — we’ll be back soon.</p>
+<div class="maintenance-card">
+  <div class="illustration">
+    <!-- Gambar undermaintenance.png dari repo GitHub (raw link) -->
+    <img src="https://raw.githubusercontent.com/pandatosca/GITS/main/undermaintenance.png" 
+         alt="GITS Consulting - Under Maintenance Illustration"
+         loading="lazy">
+  </div>
+  <div class="content">
+    <div class="badge">🔄 UNDER MAINTENANCE</div>
+    <h1>We’re Crafting Something Better</h1>
+    <p>Our website is currently under maintenance while we prepare something smarter, faster, and more inspiring. Thank you for your patience — we’ll be back soon.</p>
+    <div class="contact">
+      📧 More info? Please contact <a href="mailto:info@gitsconsulting.com">info@gitsconsulting.com</a>
     </div>
-
+  </div>
+</div>
 </body>
 </html>
