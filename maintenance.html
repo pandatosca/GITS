@@ -1,106 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Under Maintenance | GITS Consulting</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #E9E9ED 0%, #2B3681 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .maintenance-card {
-      background: white;
-      border-radius: 32px;
-      padding: 48px 32px;
-      max-width: 600px;
-      text-align: center;
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-    }
-    body.dark .maintenance-card {
-      background: #1A1F2E;
-      color: white;
-    }
-    .icon {
-      font-size: 5rem;
-      margin-bottom: 24px;
-    }
-    h1 {
-      font-size: 2.5rem;
-      color: #2B3681;
-      margin-bottom: 16px;
-    }
-    body.dark h1 {
-      color: #5788FF;
-    }
-    p {
-      color: #6F737F;
-      margin-bottom: 24px;
-      line-height: 1.6;
-    }
-    .progress-bar {
-      width: 100%;
-      height: 8px;
-      background: #E9E9ED;
-      border-radius: 10px;
-      overflow: hidden;
-      margin: 24px 0;
-    }
-    .progress-fill {
-      width: 65%;
-      height: 100%;
-      background: #2B3681;
-      border-radius: 10px;
-      animation: pulse 1.5s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; width: 65%; }
-      50% { opacity: 0.7; width: 70%; }
-    }
-    .contact {
-      margin-top: 24px;
-      font-size: 0.9rem;
-    }
-    .contact a {
-      color: #2B3681;
-      text-decoration: none;
-    }
-    @media (max-width: 600px) {
-      .maintenance-card { padding: 32px 20px; }
-      h1 { font-size: 1.8rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Maintenance - GITS Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: #2c336b; /* Warna biru gelap menyesuaikan dengan logo/gambar */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 24px;
+        }
+
+        .maintenance-container {
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .illustration {
+            width: 100%;
+            max-width: 500px; /* Ukuran proporsional di desktop */
+            height: auto;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+            color: #2c336b;
+        }
+
+        p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.6;
+            color: #5a618e;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Responsive Mobile Layout */
+        @media (max-width: 768px) {
+            .illustration {
+                max-width: 350px;
+                margin-bottom: 30px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="maintenance-card">
-    <div class="icon">🔧</div>
-    <h1>We'll Be Back Soon</h1>
-    <p><strong>GITS Consulting</strong> sedang melakukan pemeliharaan sistem untuk memberikan layanan yang lebih baik.</p>
-    <div class="progress-bar">
-      <div class="progress-fill"></div>
+
+    <div class="maintenance-container">
+        <img src="We’re Crafting Something Better.svg" alt="Under Maintenance" class="illustration">
+        
+        <h1>We’re Crafting<br>Something Better</h1>
+        <p>Our website is currently under maintenance while we prepare something smarter, faster, and more inspiring. Thank you for your patience — we’ll be back soon.</p>
     </div>
-    <p>Perkiraan selesai: <strong>2-3 jam lagi</strong><br>Terima kasih atas kesabaran Anda.</p>
-    <div class="contact">
-      📧 <a href="mailto:info@gitsconsulting.com">info@gitsconsulting.com</a><br>
-      📞 +62(31) 99841234
-    </div>
-  </div>
-  <script>
-    // Dark mode detection
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.body.classList.add('dark');
-    }
-  </script>
+
 </body>
 </html>
